@@ -4,6 +4,7 @@ let totalItems;
 let cart;
 let updateCart;
 let currentProduct;
+let productName;
 
 let products = [ 
     {
@@ -27,6 +28,18 @@ let products = [
         inCart: 0
     }
 ];
+
+for(let i=0; i< carts.length; i++) {
+    carts[i].addEventListener('click', () => {
+        // console.log('button clicked');
+        // console.log(carts[i].nextElementSibling.value);
+        
+        totalCost(carts[i], products[i].price );
+        setItems(products[i], i);
+        // console.log("Before adding " + typeof totalItems + " and value is " + totalItems);
+        
+    });
+}
 
 function setItems(items, index) {
     cartItems = localStorage.getItem('productsInCart');
@@ -95,23 +108,51 @@ function totalCost(el, price ) {
         document.querySelector('.cart span').textContent = price;
     }
 
-    
-
     // localStorage.setItem("totalItems", totalItems + 1 );
     //     updateCart();
 }
 
+function displayCart() {
+    cartItems = localStorage.getItem('productsInCart');
 
-for(let i=0; i< carts.length; i++) {
-    carts[i].addEventListener('click', () => {
-        // console.log('button clicked');
-        // console.log(carts[i].nextElementSibling.value);
+    cartItems = JSON.parse(cartItems);
+
+    console.log(cartItems);
+    console.log(typeof cartItems);
+    console.log(Object.values(cartItems));
+    let productContainer = document.querySelector('.products');
+    productContainer.innerHTML = '';
+    if( cartItems && productContainer ) {
+        Object.values(cartItems).map( (item) => {
+            return productContainer.innerHTML += `
+            <div class="product"><ion-icon name="close-circle"></ion-icon><img src="./images/${item.name}.jpg" />${item.name}</div>
+            <div class="price">$${item.price},00</div>
+            <div class="quantity">${item.inCart}</div>
+            <div class="total">$${item.inCart * item.price},00</div>
+            `
+        });
         
-        totalCost(carts[i], products[i].price );
-        setItems(products[i], i);
-        // console.log("Before adding " + typeof totalItems + " and value is " + totalItems);
-        
-    });
+    }
 }
 
-// updateCart();
+function deleteProduct() {
+    cartItems = localStorage.getItem('productsInCart');
+
+    cartItems = JSON.parse(cartItems);
+
+    let deleteButtons = document.querySelectorAll('.product ion-icon');
+    let productName;
+
+    for(let i=0; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener('click', () => {
+            productName = deleteButtons[i].parentElement.textContent;
+            console.log(productName);
+            delete cartItems[productName];
+            console.log(cartItems);
+            localStorage.setItem('productsInCart', JSON.stringify(cartItems));
+            displayCart();
+        })
+    }
+}
+
+displayCart();

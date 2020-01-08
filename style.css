@@ -55,11 +55,12 @@ ion-icon {
    padding-right: 5px;
 }
 
-.cart {
+.cart a {
     background-color: royalblue;
     padding: 5px;
     color: #fff;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .container {
@@ -95,5 +96,63 @@ ion-icon {
     opacity: 1;
     padding: 10px;
     text-decoration: none;
+}
+
+.product-header {
+    width: 100%;
+    max-width: 650px;
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 4px solid lightgray;
+}
+
+.product-title {
+    width: 45%;
+}
+
+.price {
+    width: 15%;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+}
+
+.quantity {
+    width: 30%;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+}
+
+.total {
+    width: 10%;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+}
+
+.product {
+    width: 45%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid lightgray;
+}
+
+.product ion-icon {
+    cursor: pointer;
+    
+}
+
+.products {
+    width: 100%;
+    max-width: 650px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.products img {
+    width: 75px;
 }
 
